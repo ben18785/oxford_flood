@@ -9,7 +9,7 @@ get_file_and_format <- function(station_id, is_river=TRUE) {
     base_url <- paste0(base_url, "rainfall-station-csv/")
 
   full_url <- paste0(base_url, station_id)
-  df <- read.csv(download_url)
+  df <- read.csv(full_url)
 
   if(is_river)
     colnames(df) <- c("date", "height")
