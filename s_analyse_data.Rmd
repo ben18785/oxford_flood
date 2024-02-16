@@ -1,0 +1,62 @@
+---
+title: "Analyse data"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+source("helper.R")
+```
+
+
+# Examine data from stream recordings
+```{r}
+river_stations <- c(7076, 9120, 7057, 7075, 7074, 9119, 7027,
+              7405, 7402, 7003, 7073, 7081, 7071, 7072,
+              7056, 7055, 7054, 7048, 7047, 9082, 7066,
+              7064, 7052, 7063, 7070, 7062, 7061, 7060,
+              7059, 7043, 7058, 2080, 7068, 7067, 7095, 7094,
+              7092, 7046, 9569, 7038, 7037, 7036, 7035,
+              7034, 7024, 7014, 7011, 7010, 7406, 7026,
+              7025, 7040, 2079, 2043, 7015, 7021, 7013,
+              7012)
+
+for(i in seq_along(river_stations)) {
+  
+  df <- retrieve_all_data_station(river_stations[i])
+  
+  if(i == 1)
+    df_all_stations <- df
+  else
+    df_all_stations <- df_all_stations %>% bind_rows(df)
+}
+df_all_stations %>%
+  filter(station_id %in% c("7076", "9120")) %>% 
+  ggplot(aes(x=date, y=height, group=station_id)) +
+  geom_line()
+```
+# Examine data from rainfall recordings 
+```{r}
+rainfall_stations <- c("256230TP", "254336TP", "261021TP",
+                       "253861TP", "263541TP", "254829TP",
+                       "253340TP", "E24703", "257039TP",
+                       "1087", "259110TP", "E21335",
+                       "1165", "1082", "256345TP", "E7050",
+                       "E2527", "1775", "E2476", "E7045",
+                       "251530TP", "248332TP", "251556TP",
+                       "248965TP", "1141")
+
+for(i in seq_along(rainfall_stations)) {
+  
+  df <- retrieve_all_data_station(rainfall_stations[i])
+  
+  if(i == 1)
+    df_all_rain <- df
+  else
+    df_all_rain <- df_all_rain %>% bind_rows(df)
+}
+df_all_rain %>%
+  ggplot(aes(x=date, y=rainfall, group=station_id)) +
+  geom_line()
+```
+
