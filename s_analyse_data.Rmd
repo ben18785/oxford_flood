@@ -31,7 +31,7 @@ for(i in seq_along(river_stations)) {
     df_all_stations <- df_all_stations %>% bind_rows(df)
 }
 df_all_stations %>%
-  filter(station_id %in% c("7076", "9120")) %>% 
+  filter(station_id %in% c("7076", "9120", "7072", 7075, 7066)) %>% 
   ggplot(aes(x=date, y=height, group=station_id)) +
   geom_line()
 ```
@@ -39,7 +39,7 @@ df_all_stations %>%
 ```{r}
 rainfall_stations <- c("256230TP", "254336TP", "261021TP",
                        "253861TP", "263541TP", "254829TP",
-                       "253340TP", "E24703", "257039TP",
+                       "253340TP", "E24703",
                        "1087", "259110TP", "E21335",
                        "1165", "1082", "256345TP", "E7050",
                        "E2527", "1775", "E2476", "E7045",
